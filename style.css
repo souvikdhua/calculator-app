@@ -1,0 +1,104 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.calculator {
+  width: 320px;
+  background-color: #4f4f4f; /* Dark gray background, similar to Mac calculator */
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+}
+
+.display {
+  background-color: #333; /* Darker display background */
+  color: #fff;
+  text-align: right;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.display input {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 48px; /* Larger font for display */
+  text-align: right;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px; /* Spacing between buttons */
+}
+
+button {
+  background-color: #6b6b6b; /* Lighter gray for number buttons */
+  color: #fff;
+  border: none;
+  padding: 20px;
+  font-size: 20px;
+  border-radius: 5px; /* Rounded corners for buttons */
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #8a8a8a;
+}
+
+button:active {
+  background-color: #a0a0a0;
+}
+
+/* Operator buttons styling (rightmost column) */
+.buttons button:nth-child(4n),
+.buttons button:last-child { /* Includes the '=' button */
+  background-color: #ff9f0a; /* Orange for operators */
+  color: #fff;
+}
+
+.buttons button:nth-child(4n):hover,
+.buttons button:last-child:hover {
+  background-color: #ffb74e;
+}
+
+.buttons button:nth-child(4n):active,
+.buttons button:last-child:active {
+  background-color: #ffc87a;
+}
+
+
+/* Top row buttons (C, DEL) styling */
+.buttons button:nth-child(1),
+.buttons button:nth-child(2),
+.buttons button:nth-child(3) { /* C, DEL, / */
+  background-color: #5a5a5a; /* Darker gray for top utility buttons */
+  color: #fff;
+}
+
+.buttons button:nth-child(1):hover,
+.buttons button:nth-child(2):hover,
+.buttons button:nth-child(3):hover {
+  background-color: #737373;
+}
+
+.buttons button:nth-child(1):active,
+.buttons button:nth-child(2):active,
+.buttons button:nth-child(3):active {
+  background-color: #8c8c8c;
+}
+
+/* Make the zero button span two columns */
+.buttons button:nth-child(17) { /* Assuming 0 is the 17th button if DEL is present */
+    grid-column: span 2;
+}
