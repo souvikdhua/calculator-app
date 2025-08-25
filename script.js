@@ -22,11 +22,14 @@ const calculator = {
   },
 
   appendOperator(operator) {
-    if (this.currentExpression === '' && operator !== '-') {
-        //this.updateDisplay(); // No change if expression is empty and not a minus
+    if (this.currentExpression === '') {
+      if (operator === '-') {
+        this.currentExpression += operator;
+      } else {
         return this.currentExpression;
-    }
-    if (this.lastInputWasOperator && !(operator === '-' && this.currentExpression.slice(-1) !== '-')) {
+      }
+    } else if (['+', '-', '*', '/'].includes(this.currentExpression.slice(-1))) {
+      // Replace the existing trailing operator with the new one
       this.currentExpression = this.currentExpression.slice(0, -1) + operator;
     } else {
       this.currentExpression += operator;
@@ -89,16 +92,14 @@ const calculator = {
       // Basic sanitization
       expressionToEvaluate = expressionToEvaluate.replace(/[^-()\d/*+.]/g, '');
 
-      if (/\/0(?!\.)/.test(expressionToEvaluate)) { // Avoid flagging division by 0.5 etc.
+      let result = eval(expressionToEvaluate);
+      if (!isFinite(result)) {
         this.currentExpression = 'Error: Division by zero';
         this.updateDisplay();
-        // currentExpression is error message, but internal state should reset for next valid input
-        this.currentExpression = ''; 
+        this.currentExpression = '';
         this.lastInputWasEquals = true;
         return 'Error: Division by zero';
       }
-
-      let result = eval(expressionToEvaluate);
       result = parseFloat(result.toFixed(10));
       this.currentExpression = String(result);
       this.updateDisplay();
